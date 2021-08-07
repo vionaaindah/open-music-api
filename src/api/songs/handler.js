@@ -43,7 +43,7 @@ class SongsHandler {
                 duration,
             } = request.payload;
 
-            const songId = await this._service.addSong({
+            const songId = await this._service.addingSong({
                 title,
                 year,
                 performer,
@@ -68,7 +68,7 @@ class SongsHandler {
     }
 
     async gettingAllSongsHandler() {
-        const songs = await this._service.getSongs();
+        const songs = await this._service.gettingAllSongs();
         return {
             status: 'success',
             data: {
@@ -80,7 +80,7 @@ class SongsHandler {
     async gettingSpecifiedSongHandler(request, h) {
         try {
             const { id } = request.params;
-            const song = await this._service.getSongById(id);
+            const song = await this._service.gettingSpecifiedSong(id);
             return {
                 status: 'success',
                 data: {
@@ -107,7 +107,7 @@ class SongsHandler {
 
             const { id } = request.params;
 
-            await this._service.editSongById(id, {
+            await this._service.updateSong(id, {
                 title,
                 year,
                 performer,
@@ -129,7 +129,7 @@ class SongsHandler {
         try {
             const { id } = request.params;
 
-            await this._service.deleteSongById(id);
+            await this._service.deleteSong(id);
 
             return {
                 status: 'success',
