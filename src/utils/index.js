@@ -1,22 +1,21 @@
-const mapDBToModel  = ({
-    id,
-    title,
-    year,
-    performer,
-    genre,
-    duration,
-    create_time,
-    update_time,
+const mapDBToModel = ({
+  id,
+  title,
+  year,
+  performer,
+  genre,
+  duration,
+  insertedat,
+  updatedat,
 }) => ({
-    id,
-    title,
-    year,
-    performer,
-    genre,
-    duration,
-    insertedAt: create_time,
-    updatedAt: update_time,
+  id,
+  title,
+  year,
+  performer,
+  genre,
+  duration,
+  insertedAt: insertedat,
+  updatedAt: updatedat,
 });
-  
-module.exports = { mapDBToModel  };
-  
+
+module.exports = { mapDBToModel };
