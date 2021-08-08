@@ -24,7 +24,7 @@ class SongsHandler {
 
         const response = h.response({
             status: 'error',
-            message: 'Maaf, terjadi kegagalan pada server kami.',
+            message: 'Maaf atas ketidaknyamanannya, saat ini server kami sedang mengalami kegagalan',
         });
         
         response.code(500);
@@ -62,19 +62,26 @@ class SongsHandler {
             response.code(201);
             return response;
         }
+
         catch (error) {
             return this.errorHandler(error, h);
         }
     }
 
     async gettingAllSongsHandler() {
-        const songs = await this._service.gettingAllSongs();
-        return {
-            status: 'success',
-            data: {
-                songs,
-            },
-        };
+        try{
+            const songs = await this._service.gettingAllSongs();
+            return {
+                status: 'success',
+                data: {
+                    songs,
+                },
+            };
+        }
+
+        catch (error) {
+            return this.errorHandler(error, h);
+        }
     }
 
     async gettingSpecifiedSongHandler(request, h) {
@@ -88,6 +95,7 @@ class SongsHandler {
                 },
             };
         }
+
         catch (error) {
             return this.errorHandler(error, h);
         }
@@ -117,9 +125,10 @@ class SongsHandler {
 
             return {
                 status: 'success',
-                message: 'Lagu berhasil diperbarui',
+                message: 'lagu berhasil diperbarui',
             };
         }
+
         catch (error) {
             return this.errorHandler(error, h);
         }
@@ -128,14 +137,14 @@ class SongsHandler {
     async deleteSongHandler(request, h) {
         try {
             const { id } = request.params;
-
             await this._service.deleteSong(id);
 
             return {
                 status: 'success',
-                message: 'Lagu berhasil dihapus',
+                message: 'lagu berhasil dihapus',
             };
         }
+
         catch (error) {
             return this.errorHandler(error, h);
         }

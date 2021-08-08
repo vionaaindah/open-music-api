@@ -26,11 +26,11 @@ exports.up = pgm => {
         duration: {
             type: 'INTEGER',
         },
-        created_at: {
+        create_time: {
             type: 'TEXT',
             notNull: true,
         },
-        updated_at: {
+        update_time: {
             type: 'TEXT',
             notNull: true,
         },

@@ -37,7 +37,7 @@ class SongsService {
         );
 
         if (!result.rows[0].id) {
-            throw new InvariantError('Lagu gagal ditambahkan');
+            throw new InvariantError('Gagal menambahkan lagu');
         }
 
         return result.rows[0].id;
@@ -47,6 +47,7 @@ class SongsService {
         const result = await this._pool.query(
             'SELECT id, title, performer FROM songs'
         );
+        
         return result.rows.map(mapDBToModel);
     }
 
@@ -58,7 +59,7 @@ class SongsService {
         );
 
         if (!result.rows.length) {
-            throw new NotFoundError('Lagu tidak ditemukan');
+            throw new NotFoundError('Lagu tidak ditemukan, silahkan periksa kembali');
         }
 
         return result.rows.map(mapDBToModel)[0];
@@ -75,7 +76,7 @@ class SongsService {
         const updatedAt = new Date().toISOString();
 
         const result = await this._pool.query(
-            'UPDATE songs SET title = $1, year = $2, performer = $3, genre = $4, duration = $5, updated_at = $6 WHERE id = $7 RETURNING id',
+            'UPDATE songs SET title = $1, year = $2, performer = $3, genre = $4, duration = $5, update_time = $6 WHERE id = $7 RETURNING id',
             [
                 title,
                 year,
@@ -88,7 +89,7 @@ class SongsService {
         );
 
         if (!result.rows.length) {
-            throw new NotFoundError('Gagal memperbarui lagu. Id tidak ditemukan');
+            throw new NotFoundError('ID tidak ditemukan, tidak dapat memperbarui lagu');
         }
     }
 
@@ -100,7 +101,7 @@ class SongsService {
         );
 
         if (!result.rows.length) {
-            throw new NotFoundError('Gagal menghapus lagu. Id tidak ditemukan');
+            throw new NotFoundError('ID tidak ditemukan, tidak dapat menghapus lagu');
         }
     }
 }
