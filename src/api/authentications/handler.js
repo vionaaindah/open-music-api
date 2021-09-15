@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
-
 class AuthenticationsHandler {
   constructor(authenticationsService, usersService, tokenManager, validator) {
     this._authenticationsService = authenticationsService;

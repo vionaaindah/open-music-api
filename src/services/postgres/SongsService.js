@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
-
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 const InvariantError = require('../../exceptions/InvariantError');
@@ -20,10 +18,11 @@ class SongsService {
   }) {
     const id = `song-${nanoid(16)}`;
     const insertedAt = new Date().toISOString();
-    const updatedAt = insertedAt;
 
     const result = await this._pool.query(
-      'INSERT INTO songs VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
+      `INSERT INTO songs 
+         VALUES($1, $2, $3, $4, $5, $6, $7, $7) 
+         RETURNING id`,
       [
         id,
         title,
@@ -32,7 +31,6 @@ class SongsService {
         genre,
         duration,
         insertedAt,
-        updatedAt,
       ],
     );
 
@@ -57,7 +55,7 @@ class SongsService {
       [id],
     );
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError('Lagu tidak ditemukan, silahkan periksa kembali');
     }
 
@@ -74,7 +72,14 @@ class SongsService {
     const updatedAt = new Date().toISOString();
 
     const result = await this._pool.query(
-      'UPDATE songs SET title = $1, year = $2, performer = $3, genre = $4, duration = $5, updatedat = $6 WHERE id = $7 RETURNING id',
+      `UPDATE songs SET 
+      title = $1, 
+      year = $2, 
+      performer = $3, 
+      genre = $4, 
+      duration = $5, 
+      updatedat = $6 
+      WHERE id = $7 RETURNING id`,
       [
         title,
         year,
@@ -86,7 +91,7 @@ class SongsService {
       ],
     );
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError('ID tidak ditemukan, tidak dapat memperbarui lagu');
     }
   }
@@ -97,7 +102,7 @@ class SongsService {
       [id],
     );
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError('ID tidak ditemukan, tidak dapat menghapus lagu');
     }
   }

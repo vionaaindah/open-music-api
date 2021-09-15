@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
-
 const { Pool } = require('pg');
 const InvariantError = require('../../exceptions/InvariantError');
 
@@ -25,7 +23,7 @@ class AuthenticationsService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('Refresh token tidak valid');
     }
   }

@@ -1,21 +1,17 @@
+/* eslint-disable camelcase */
+
 const mapDBToModel = ({
-  id,
-  title,
-  year,
-  performer,
-  genre,
-  duration,
   insertedat,
   updatedat,
+  playlist_id,
+  song_id,
+  ...args
 }) => ({
-  id,
-  title,
-  year,
-  performer,
-  genre,
-  duration,
+  ...args,
   insertedAt: insertedat,
   updatedAt: updatedat,
+  playlistId: playlist_id,
+  songId: song_id,
 });
 
 module.exports = { mapDBToModel };

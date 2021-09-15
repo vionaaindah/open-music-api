@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
-
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
@@ -21,7 +19,7 @@ class UsersService {
     };
 
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('User gagal ditambahkan');
     }
     return result.rows[0].id;
@@ -34,7 +32,7 @@ class UsersService {
     };
 
     const result = await this._pool.query(query);
-    if (result.rows.length > 0) {
+    if (result.rowCount) {
       throw new InvariantError('Gagal menambahkan user. Username sudah digunakan.');
     }
   }
@@ -47,7 +45,7 @@ class UsersService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new AuthenticationError('Kredensial yang Anda berikan salah');
     }
 
